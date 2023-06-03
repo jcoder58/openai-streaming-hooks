@@ -1,7 +1,7 @@
 {
-  "name": "openai-streaming-hooks",
-  "version": "2.0.0",
-  "description": "React Hooks for streaming connections to OpenAI APIs",
+  "name": "openai-streaming-hooks-chrome-fix",
+  "version": "3.0.0",
+  "description": "React Hooks for streaming connections to OpenAI APIs - this is a fork of the original package with a fix for the chrome browser",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",

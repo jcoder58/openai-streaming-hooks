@@ -1,8 +1,8 @@
 # OpenAI Streaming Hooks
-
+## this is a fork of the original package with a fix for the chrome browser
 > Talk directly to [OpenAI Completion APIs](https://platform.openai.com/docs/api-reference/chat) and stream the response back in real-time in the browser--no server required.
 >
-> **All models based on GPT3.5 and GPT4 are supported!**
+> **All models based on GPT3.5 and GPT4 are supported!** 
 
 Provides a [custom React Hook](https://react.dev/learn/reusing-logic-with-custom-hooks) capable of calling OpenAI Chat Completions APIs with [streaming support](https://github.com/openai/openai-cookbook/blob/main/examples/How_to_stream_completions.ipynb) enabled by [ReadableStreams](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream).
 
