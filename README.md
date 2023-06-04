@@ -27,13 +27,14 @@ See section on [running the example](#running-the-example) for more information.
 1. Install the OpenAI Streaming Hooks library via a package manager like `npm` or `yarn`:
 
 ```bash
-npm install --save openai-streaming-hooks
+npm install --save openai-streaming-hooks-chrome-fix
+
 ```
 
 2. Import the hook and use it:
 
 ```tsx
-import { useChatCompletion } from 'openai-streaming-hooks';
+import { useChatCompletion } from 'openai-streaming-hooks-chrome-fix';
 
 const Component = () => {
   const { messages, submitPrompt } = useChatCompletion({
@@ -152,7 +153,7 @@ If the `resetMessages` function is called the messages list will be set back to 
 1. Clone this package locally and navigate to it:
 
 ```bash
-git clone https://github.com/jonrhall/openai-streaming-hooks.git
+git clone https://github.com/Rvey/openai-streaming-hooks.git
 cd openai-streaming-hooks
 ```
 
