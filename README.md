@@ -27,8 +27,7 @@ See section on [running the example](#running-the-example) for more information.
 1. Install the OpenAI Streaming Hooks library via a package manager like `npm` or `yarn`:
 
 ```bash
-npm install --save openai-streaming-hooks-chrome-fix
-
+npm install --save openai-streaming-hooks
 ```
 
 2. Import the hook and use it:
