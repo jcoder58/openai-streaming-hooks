@@ -61,6 +61,7 @@ export const useChatCompletion = (apiParams: OpenAIStreamingParams) => {
     if (controller) {
       controller.abort();
       setController(null);
+      setLoading(false);
     }
   };
 
