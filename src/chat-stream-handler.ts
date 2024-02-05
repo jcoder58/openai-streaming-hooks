@@ -87,7 +87,7 @@ export const openAiStreamingDataHandler = async (
     // Parse the lines into chat completion chunks
     const chunks: OpenAIChatCompletionChunk[] = lines
       // Remove 'data:' prefix off each line
-      .map((line) => line.replace(/(\n)?^data:\s*/, '').trim())
+      .map((line) => line.replace(/(\n)?^data:\s*/m, '').trim())
       // Remove empty lines and "[DONE]"
       .filter((line) => line !== '' && line !== '[DONE]')
       // Parse JSON string
