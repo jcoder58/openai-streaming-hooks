@@ -130,7 +130,7 @@ export const useChatCompletion = (apiParams: OpenAIStreamingParams) => {
       // a `loading` state set to true, we know there is a request in progress.
       if (messages[messages.length - 1]?.meta?.loading) return;
 
-      // If the array is empty or there are no new messages submited, do not make a request.
+      // If the array is empty or there are no new messages submitted, do not make a request.
       if (!newMessages || newMessages.length < 1) {
         return;
       }
