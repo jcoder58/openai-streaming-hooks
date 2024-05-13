@@ -15,6 +15,7 @@
     "clean": "rm -rf node_modules/ dist/ coverage/",
     "prepare": "npm run build",
     "example": "vite serve example",
+    "open-router-example": "vite serve open-router-example",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "prettier": "prettier --write ."
