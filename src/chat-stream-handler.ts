@@ -30,7 +30,6 @@ export const getOpenAiRequestOptions = (
   signal,
 });
 
-const CHAT_COMPLETIONS_URL = 'https://api.openai.com/v1/chat/completions';
 
 const textDecoder = new TextDecoder('utf-8');
 
@@ -39,13 +38,14 @@ const textDecoder = new TextDecoder('utf-8');
 export const openAiStreamingDataHandler = async (
   requestOpts: FetchRequestOptions,
   onIncomingChunk: (contentChunk: string, roleChunk: OpenAIChatRole) => void,
-  onCloseStream: (beforeTimestamp: number) => void
+  onCloseStream: (beforeTimestamp: number) => void,
+  chatCompletionsUrl: string
 ) => {
   // Record the timestamp before the request starts.
   const beforeTimestamp = Date.now();
 
   // Initiate the completion request
-  const response = await fetch(CHAT_COMPLETIONS_URL, requestOpts);
+  const response = await fetch(chatCompletionsUrl, requestOpts);
 
   // If the response isn't OK (non-2XX HTTP code) report the HTTP status and description.
   if (!response.ok) {

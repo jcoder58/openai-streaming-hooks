@@ -12,6 +12,7 @@ import type {
 } from './types';
 
 const MILLISECONDS_PER_SECOND = 1000;
+const CHAT_COMPLETIONS_URL = 'https://api.openai.com/v1/chat/completions';
 
 // Utility method for transforming a chat message decorated with metadata to a more limited shape
 // that the OpenAI API expects.
@@ -49,7 +50,10 @@ const updateLastItem =
       return msg;
     });
 
-export const useChatCompletion = (apiParams: OpenAIStreamingParams) => {
+export const useChatCompletion = (
+  apiParams: OpenAIStreamingParams,
+  chatCompletionsUrl = CHAT_COMPLETIONS_URL
+) => {
   const [messages, _setMessages] = React.useState<ChatMessage[]>([]);
   const [loading, setLoading] = React.useState(false);
   const [controller, setController] = React.useState<AbortController | null>(
@@ -178,7 +182,8 @@ export const useChatCompletion = (apiParams: OpenAIStreamingParams) => {
           // The handleNewData function will be called as new data is received.
           handleNewData,
           // The closeStream function be called when the message stream has been completed.
-          closeStream
+          closeStream,
+          chatCompletionsUrl
         );
       } catch (err) {
         if (signal.aborted) {
