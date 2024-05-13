@@ -67,3 +67,33 @@ export interface FetchRequestOptions {
   body: string;
   signal?: AbortSignal;
 }
+
+// types.ts
+export interface Architecture {
+  instruct_type: string | null;
+  modality: string;
+  tokenizer: string;
+}
+
+export interface TopProvider {
+  is_moderated: boolean;
+  max_completion_tokens: number | null;
+}
+
+export interface Pricing {
+  completion: string;
+  image: string;
+  prompt: string;
+  request: string;
+}
+
+export interface OpenRouterModel {
+  architecture: Architecture;
+  context_length: number;
+  description: string;
+  id: string;
+  name: string;
+  per_request_limits: any | null;
+  pricing: Pricing;
+  top_provider: TopProvider;
+}
