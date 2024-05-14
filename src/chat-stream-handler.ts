@@ -84,8 +84,10 @@ export const openAiStreamingDataHandler = async (
     const decodedData = textDecoder.decode(newData as Buffer);
     // Split the data into lines to process
     const lines = decodedData.split(/(\n){2}/);
+    console.log(lines)
     // Parse the lines into chat completion chunks
     const chunks: OpenAIChatCompletionChunk[] = lines
+      .filter((line) => line.includes('data:'))
       // Remove 'data:' prefix off each line
       .map((line) => line.replace(/(\n)?^data:\s*/m, '').trim())
       // Remove empty lines and "[DONE]"
@@ -95,18 +97,21 @@ export const openAiStreamingDataHandler = async (
 
     // Process each chunk and send an update to the registered handler.
     for (const chunk of chunks) {
-      // Avoid empty line after single backtick
-      const contentChunk: string = (
-        chunk.choices[0].delta.content ?? ''
-      ).replace(/^`\s*/, '`');
-      // Most times the chunk won't contain a role, in those cases set the role to ""
-      const roleChunk: OpenAIChatRole = chunk.choices[0].delta.role ?? '';
+      console.log(`chunk: ${chunk.object}`)
+      if (chunk && chunk.choices) {
+        // Avoid empty line after single backtick
+        const contentChunk: string = (
+          (chunk.choices[0].delta.content ?? '')
+        ).replace(/^`\s*/, '`');
+        // Most times the chunk won't contain a role, in those cases set the role to ""
+        const roleChunk: OpenAIChatRole = chunk.choices[0].delta.role ?? '';
 
-      // Assign the new data to the rest of the data already received.
-      content = `${content}${contentChunk}`;
-      role = `${role}${roleChunk}`;
+        // Assign the new data to the rest of the data already received.
+        content = `${content}${contentChunk}`;
+        role = `${role}${roleChunk}`;
 
-      onIncomingChunk(contentChunk, roleChunk);
+        onIncomingChunk(contentChunk, roleChunk);
+      }
     }
   }
 

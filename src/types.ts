@@ -49,7 +49,7 @@ export interface ChatMessage extends OpenAIChatMessage {
 // https://platform.openai.com/docs/api-reference/chat
 export interface OpenAIStreamingParams {
   apiKey: string;
-  model: Model;
+  model: string;
   temperature?: number;
   top_p?: number;
   n?: number;

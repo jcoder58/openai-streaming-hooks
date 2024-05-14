@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './example.css';
 import { useChatCompletion } from '../src';
 
+const CHAT_COMPLETIONS_URL = 'https://openrouter.ai/api/v1/chat/completions';
+
 const formatDate = (date: Date) =>
   date.toLocaleString('en-US', {
     year: 'numeric',
@@ -17,10 +19,12 @@ const formatDate = (date: Date) =>
 const ExampleComponent = () => {
   const [promptText, setPromptText] = React.useState('');
   const { messages, submitPrompt } = useChatCompletion({
-    model: 'gpt-3.5-turbo',
+    model: 'openai/gpt-3.5-turbo',
     apiKey: import.meta.env.VITE_OPENAI_API_KEY,
     temperature: 0.9,
-  });
+  },
+  CHAT_COMPLETIONS_URL
+);
 
   const onSend = () => {
     submitPrompt([{ content: promptText, role: 'user' }]);

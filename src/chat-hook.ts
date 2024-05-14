@@ -88,7 +88,9 @@ export const useChatCompletion = (
     _setMessages(
       updateLastItem((msg) => ({
         content: `${msg.content}${chunkContent}`,
-        role: `${msg.role}${chunkRole}` as OpenAIChatRole,
+        role: chunkRole !== msg.role ? 
+                `${msg.role}${chunkRole}` as OpenAIChatRole : 
+                msg.role,
         timestamp: 0,
         meta: {
           ...msg.meta,
