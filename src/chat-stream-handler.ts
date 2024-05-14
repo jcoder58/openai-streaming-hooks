@@ -13,7 +13,7 @@ import type {
 export const getOpenAiRequestOptions = (
   { apiKey, model, ...restOfApiParams }: OpenAIStreamingParams,
   messages: OpenAIChatMessage[],
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ): FetchRequestOptions => ({
   headers: {
     'Content-Type': 'application/json',

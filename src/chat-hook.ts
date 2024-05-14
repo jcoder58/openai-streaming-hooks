@@ -131,7 +131,9 @@ export const useChatCompletion = (
   };
 
   const submitPrompt = React.useCallback(
-    async (newMessages?: ChatMessageParams[]) => {
+    async (newMessages?: ChatMessageParams[],
+      useModel = apiParams.model
+    ) => {
       // Don't let two streaming calls occur at the same time. If the last message in the list has
       // a `loading` state set to true, we know there is a request in progress.
       if (messages[messages.length - 1]?.meta?.loading) return;
@@ -140,7 +142,7 @@ export const useChatCompletion = (
       if (!newMessages || newMessages.length < 1) {
         return;
       }
-
+      
       setLoading(true);
 
       // Update the messages list with the new message as well as a placeholder for the next message
@@ -164,9 +166,11 @@ export const useChatCompletion = (
       const signal = newController.signal;
       setController(newController);
 
+      const apiParamsModel = {...apiParams, model : useModel};
+      
       // Define options that will be a part of the HTTP request.
       const requestOpts = getOpenAiRequestOptions(
-        apiParams,
+        apiParamsModel,
         updatedMessages
           // Filter out the last message, since technically that is the message that the server will
           // return from this request, we're just storing a placeholder for it ahead of time to signal
@@ -176,6 +180,7 @@ export const useChatCompletion = (
           .map(officialOpenAIParams),
         signal
       );
+      
 
       try {
         // Wait for all the results to be streamed back to the client before proceeding.

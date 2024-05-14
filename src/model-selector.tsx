@@ -1,5 +1,5 @@
 // ModelSelector.tsx
-import React, { useState } from 'react';
+import React, { useState,FC } from 'react';
 import useOpenRouterModels from './open-router-models';
 import { OpenRouterModel } from './types';
 
@@ -7,7 +7,7 @@ interface ModelSelectorProps {
   onModelSelect: (model: OpenRouterModel | null) => void;
 }
 
-const ModelSelector: React.FC<ModelSelectorProps> = ({ onModelSelect }) => {
+const ModelSelector: FC<ModelSelectorProps> = ({ onModelSelect }) => {
   const models = useOpenRouterModels();
   const [selectedModel, setSelectedModel] = useState<OpenRouterModel | null>(null);
 

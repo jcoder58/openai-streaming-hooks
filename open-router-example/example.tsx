@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './example.css';
 import { useChatCompletion } from '../src';
+import ModelSelector from '../src/model-selector';
+import { OpenRouterModel } from '../src/types';
 
 const CHAT_COMPLETIONS_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
@@ -16,20 +18,31 @@ const formatDate = (date: Date) =>
     timeZoneName: 'short',
   });
 
+const DEFAULT_CHAT_MODEL = 'openai/gpt-3.5-turbo';
+
 const ExampleComponent = () => {
   const [promptText, setPromptText] = React.useState('');
+  const [useModel, setUseModel] = React.useState(DEFAULT_CHAT_MODEL);
   const { messages, submitPrompt } = useChatCompletion({
-    model: 'openai/gpt-3.5-turbo',
-    apiKey: import.meta.env.VITE_OPENAI_API_KEY,
-    temperature: 0.9,
-  },
-  CHAT_COMPLETIONS_URL
-);
+      model: DEFAULT_CHAT_MODEL,
+      apiKey: import.meta.env.VITE_OPENAI_API_KEY,
+      temperature: 0.9,
+    },
+    CHAT_COMPLETIONS_URL
+  );
+
+  const handleModelSelect = (model: OpenRouterModel | null) => {
+    // Handle the selected model
+    if (model) {
+      setUseModel(model.id);
+    }
+  };
 
   const onSend = () => {
-    submitPrompt([{ content: promptText, role: 'user' }]);
+    submitPrompt([{ content: promptText, role: 'user' }], useModel);
     setPromptText('');
   };
+
 
   // When content is added to the chat window, make sure we scroll to the bottom so the most
   // recent content is visible to the user.
@@ -39,6 +52,7 @@ const ExampleComponent = () => {
 
   return (
     <>
+      <ModelSelector onModelSelect={handleModelSelect}/>
       <div className="chat-wrapper">
         {messages.length < 1 ? (
           <div className="empty">No messages</div>
